@@ -3,9 +3,63 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{2240D4F4-4198-4C09-90E6-DBE638853F90}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Painel", "Painel", "{0D270788-DE95-4336-9FEC-B954BCEAF4D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealTimeNotificationApp.Api", "Api\RealTimeNotificationApp.Api\RealTimeNotificationApp.Api.csproj", "{5A2802F7-8966-41FC-B598-349492B8884B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealTimeNotificationApp.Domain", "Api\RealTimeNotificationApp.Domain\RealTimeNotificationApp.Domain.csproj", "{E057A53A-96C0-4960-8F55-9DB103FB2414}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealTimeNotificationApp.Infra", "Api\RealTimeNotificationApp.Infra\RealTimeNotificationApp.Infra.csproj", "{10EE2947-4266-4DAF-AF77-8B23224F0932}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealTimeNotificationApp.Application", "Api\RealTimeNotificationApp.Application\RealTimeNotificationApp.Application.csproj", "{BCB8FCE3-40D3-4187-BA5A-D751CE22B830}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealTimeNotificationApp.Ioc", "Api\RealTimeNotificationApp.Ioc\RealTimeNotificationApp.Ioc.csproj", "{7AC12033-E3DA-493C-B06B-9904AD6D2ADE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealTimeNotificationApp.Painel", "Painel\RealTimeNotificationApp.Painel\RealTimeNotificationApp.Painel.csproj", "{BC6AE0F9-979E-452B-BA84-5D26666AD270}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5A2802F7-8966-41FC-B598-349492B8884B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A2802F7-8966-41FC-B598-349492B8884B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A2802F7-8966-41FC-B598-349492B8884B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A2802F7-8966-41FC-B598-349492B8884B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E057A53A-96C0-4960-8F55-9DB103FB2414}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E057A53A-96C0-4960-8F55-9DB103FB2414}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E057A53A-96C0-4960-8F55-9DB103FB2414}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E057A53A-96C0-4960-8F55-9DB103FB2414}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10EE2947-4266-4DAF-AF77-8B23224F0932}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10EE2947-4266-4DAF-AF77-8B23224F0932}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10EE2947-4266-4DAF-AF77-8B23224F0932}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10EE2947-4266-4DAF-AF77-8B23224F0932}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCB8FCE3-40D3-4187-BA5A-D751CE22B830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCB8FCE3-40D3-4187-BA5A-D751CE22B830}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCB8FCE3-40D3-4187-BA5A-D751CE22B830}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCB8FCE3-40D3-4187-BA5A-D751CE22B830}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AC12033-E3DA-493C-B06B-9904AD6D2ADE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AC12033-E3DA-493C-B06B-9904AD6D2ADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AC12033-E3DA-493C-B06B-9904AD6D2ADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AC12033-E3DA-493C-B06B-9904AD6D2ADE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC6AE0F9-979E-452B-BA84-5D26666AD270}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC6AE0F9-979E-452B-BA84-5D26666AD270}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC6AE0F9-979E-452B-BA84-5D26666AD270}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC6AE0F9-979E-452B-BA84-5D26666AD270}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5A2802F7-8966-41FC-B598-349492B8884B} = {2240D4F4-4198-4C09-90E6-DBE638853F90}
+		{E057A53A-96C0-4960-8F55-9DB103FB2414} = {2240D4F4-4198-4C09-90E6-DBE638853F90}
+		{10EE2947-4266-4DAF-AF77-8B23224F0932} = {2240D4F4-4198-4C09-90E6-DBE638853F90}
+		{BCB8FCE3-40D3-4187-BA5A-D751CE22B830} = {2240D4F4-4198-4C09-90E6-DBE638853F90}
+		{7AC12033-E3DA-493C-B06B-9904AD6D2ADE} = {2240D4F4-4198-4C09-90E6-DBE638853F90}
+		{BC6AE0F9-979E-452B-BA84-5D26666AD270} = {0D270788-DE95-4336-9FEC-B954BCEAF4D0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5624B12B-BD29-4407-A0A4-0DCCCE07B1DE}
