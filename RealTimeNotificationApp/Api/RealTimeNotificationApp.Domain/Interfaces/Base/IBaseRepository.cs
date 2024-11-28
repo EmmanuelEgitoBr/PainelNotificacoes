@@ -4,12 +4,10 @@ namespace RealTimeNotificationApp.Domain.Interfaces.Base
 {
     public interface IBaseRepository<T>
     {
-        Task CreateAsync(T retailer);
+        Task CreateAsync(T entity, CancellationToken cancellationToken = default);
         Task DeleteAsync(Expression<Func<T, bool>> filterExpression);
-        Task DeleteAsync(T document);
-        Task<T> FindAsync(Guid id);
-        Task<List<T>> FindAsync(Expression<Func<T, bool>> filter);
-        Task<List<T>> GetAll();
-        Task UpdateAsync(T retailer);
+        Task<List<T>> FindAsync(Expression<Func<T, bool>> filter, CancellationToken cancellationToken = default);
+        Task<List<T>> GetAll(CancellationToken cancellationToken = default);
+        Task UpdateAsync(T entity, Guid id, CancellationToken cancellationToken = default);
     }
 }
