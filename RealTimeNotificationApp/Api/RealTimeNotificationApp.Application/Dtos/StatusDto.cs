@@ -1,6 +1,6 @@
-﻿namespace RealTimeNotificationApp.Domain.Enums
+﻿namespace RealTimeNotificationApp.Application.Dtos
 {
-    public enum Status
+    public enum StatusDto
     {
         Registrada = 0,
         PagamentoConfirmado = 1,
