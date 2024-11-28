@@ -19,6 +19,18 @@ namespace RealTimeNotificationApp.Application.Services
             _mapper = mapper;
         }
 
+        public async Task DeleteOrder(string orderNumber)
+        {
+            await _orderRepository.DeleteAsync(o => o.NumeroPedido == orderNumber);
+        }
+
+        public async Task<OrderDto> GetOrder(string orderNumber, CancellationToken cancellationToken = default)
+        {
+            var orderEntity = await _orderRepository.FindAsync(o => o.NumeroPedido == orderNumber, cancellationToken);
+
+            return _mapper.Map<OrderDto>(orderEntity);
+        }
+
         public async Task<OrderDto> RegisterOrder(OrderDto orderDto, CancellationToken cancellationToken = default)
         {
             string numPedido = Validations.GenerateOrderNumber(DateTime.Now, orderDto.Telefone);

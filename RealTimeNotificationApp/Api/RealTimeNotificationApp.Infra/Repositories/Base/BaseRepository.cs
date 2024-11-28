@@ -29,9 +29,6 @@ namespace RealTimeNotificationApp.Infra.Repositories.Base
         public virtual async Task<List<T>> FindAsync(Expression<Func<T, bool>> filter, CancellationToken cancellationToken = default)
             => await _collection.Find(filter).ToListAsync();
 
-        public async Task<List<T>> GetAll(CancellationToken cancellationToken = default)
-            => await _collection.Find(f => f != null).ToListAsync(cancellationToken);
-
         public async Task UpdateAsync(T newClass, Guid id, CancellationToken cancellationToken = default)
         {
             var filter = Builders<T>.Filter.Eq("Id", id);

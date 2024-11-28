@@ -4,6 +4,7 @@ using RealTimeNotificationApp.Application.Interfaces;
 using RealTimeNotificationApp.Domain.Entities;
 using RealTimeNotificationApp.Domain.Enums;
 using RealTimeNotificationApp.Domain.Interfaces;
+using RealTimeNotificationApp.Infra.Repositories;
 
 namespace RealTimeNotificationApp.Application.Services
 {
@@ -17,6 +18,18 @@ namespace RealTimeNotificationApp.Application.Services
         {
             _deliveryRepository = deliveryRepository;
             _mapper = mapper;
+        }
+
+        public async Task DeleteDelivery(string orderNumber)
+        {
+            await _deliveryRepository.DeleteAsync(d => d.NumeroPedido == orderNumber);
+        }
+
+        public async Task<DeliveryDto> GetDelivery(string orderNumber, CancellationToken cancellationToken = default)
+        {
+            var deliveryEntity = await _deliveryRepository.FindAsync(d => d.NumeroPedido == orderNumber, cancellationToken);
+
+            return _mapper.Map<DeliveryDto>(deliveryEntity);
         }
 
         public async Task<DeliveryDto> RegisterDelivery(string orderNumber, 
