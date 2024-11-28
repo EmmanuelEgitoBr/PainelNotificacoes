@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using RealTimeNotificationApp.Api.Models;
+using RealTimeNotificationApp.Api.SignalHub;
 using RealTimeNotificationApp.Application.Dtos;
 using RealTimeNotificationApp.Application.Interfaces;
 
@@ -10,11 +13,15 @@ namespace RealTimeNotificationApp.Api.Controllers
     {
         private readonly IOrderService _orderService;
         private readonly IDeliveryService _deliveryService;
+        private readonly IHubContext<OrderHub> _hubContext;
 
-        public PedidoController(IOrderService orderService, IDeliveryService deliveryService)
+        public PedidoController(IOrderService orderService,
+                                IDeliveryService deliveryService,
+                                IHubContext<OrderHub> hubContext)
         {
             _orderService = orderService;
             _deliveryService = deliveryService;
+            _hubContext = hubContext;
         }
 
         [HttpGet("resumo-completo/{numeroPedido}")]
@@ -55,16 +62,22 @@ namespace RealTimeNotificationApp.Api.Controllers
             return Ok(orderResult);
         }
 
-        [HttpPut("alterar-status/{numeroPedido}/{statusFinal}")]
-        public async Task<ActionResult> Put(string numeroPedido, int statusFinal)
+        [HttpPut("alterar-status")]
+        public async Task<ActionResult> Put([FromBody] UpdateStatusRequest request)
         {
             var cancellationToken = CancellationToken.None;
 
-            var deliveryResult = await _deliveryService.UpdateStatusDelivery(numeroPedido, 
-                                                                            statusFinal,
+            var deliveryResult = await _deliveryService.UpdateStatusDelivery(request.NumeroPedido, 
+                                                                            request.StatusFinal,
                                                                             cancellationToken);
 
             if (deliveryResult == null) { return BadRequest("Erro ao atualizar Status de entrega"); }
+
+            // Enviar atualização do status para o hub
+            await _hubContext.Clients.All.SendAsync(
+                "ReceiveOrderStatusUpdate",
+                deliveryResult.NumeroPedido,
+                request.StatusFinal);
 
             return Ok("Status de entrega atualizado com sucesso!");
         }

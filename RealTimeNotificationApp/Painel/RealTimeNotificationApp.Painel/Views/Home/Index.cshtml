@@ -3,6 +3,27 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Bem Vindo</h1>
+    <p>Esse sistema permite o gerenciamento de pedidos, bem como acompanhar mudanças em tempo real</p>
 </div>
+<hr />
+<div class="container">
+    <ul>
+        <li>
+            Para acompanhamento de notificações de alterações de pedido, clique no link abaixo:
+            <a class="nav-link text-primary" asp-area="" asp-controller="Painel" asp-action="Index"><b>Acompanhe as notificações</b></a>
+        </li>
+        <li>
+            Para consulta completa de um determinado pedido, clique no link abaixo:
+            <a class="nav-link text-primary" asp-area="" asp-controller="Pedido" asp-action="ConsultarPedido"><b>Consulte um pedido</b></a>
+        </li>
+        <li>Para cadastro de novo pedido, clique no link abaixo: 
+            <a class="nav-link text-primary" asp-area="" asp-controller="Pedido" asp-action="CadastrarPedido"><b>Cadastre um pedido</b></a>
+        </li>
+        <li>
+            Para alterar status de um pedido, clique no link abaixo:
+            <a class="nav-link text-primary" asp-area="" asp-controller="Pedido" asp-action="AlterarStatus"><b>Atualize o status do pedido</b></a>
+        </li>
+    </ul>
+</div>
+<hr />
