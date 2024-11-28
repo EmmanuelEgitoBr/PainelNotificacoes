@@ -58,9 +58,9 @@ namespace RealTimeNotificationApp.Ioc.Ioc
         {
             MongoSettings mongoDBSettings = new MongoSettings
             {
-                ConnectionString = configuration.GetSection("MongoSettings:ConnectionString").ToString()
+                ConnectionString = configuration.GetSection("MongoSettings:ConnectionString").Value
                     ?? throw new InvalidOperationException("Configuração MongoSettings não foi informada"),
-                Database = configuration.GetSection("MongoSettings:DatabaseName").ToString()
+                Database = configuration.GetSection("MongoSettings:DatabaseName").Value
                     ?? throw new InvalidOperationException("Configuração MongoSettings não foi informada")
             };
 

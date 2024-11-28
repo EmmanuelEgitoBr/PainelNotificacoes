@@ -7,6 +7,6 @@ namespace RealTimeNotificationApp.Application.Interfaces
         Task DeleteDelivery(string orderNumber);
         Task<DeliveryDto> GetDelivery(string orderNumber, CancellationToken cancellationToken = default);
         Task<DeliveryDto> RegisterDelivery(string orderNumber, DateTime creationDate, CancellationToken cancellationToken = default);
-        Task<DeliveryDto> UpdateStatusDelivery(DeliveryDto delivery, int statusFinal, CancellationToken cancellationToken = default);
+        Task<DeliveryDto> UpdateStatusDelivery(string orderNumber, int statusFinal, CancellationToken cancellationToken = default);
     }
 }

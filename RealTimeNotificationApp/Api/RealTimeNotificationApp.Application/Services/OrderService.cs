@@ -36,12 +36,23 @@ namespace RealTimeNotificationApp.Application.Services
             string numPedido = Validations.GenerateOrderNumber(DateTime.Now, orderDto.Telefone);
 
             orderDto.NumeroPedido = numPedido;
+            orderDto.CriadoEm = DateTime.Now;
 
             var orderEntity = _mapper.Map<Order>(orderDto);
 
             await _orderRepository.CreateAsync(orderEntity);
 
             return orderDto;
+        }
+
+        public async Task<OrderDto> UpdateContactNumber(string orderNumber, string newPhone, CancellationToken cancellationToken = default)
+        {
+            var orderEntity = await _orderRepository.FindAsync(o => o.NumeroPedido == orderNumber, cancellationToken);
+            orderEntity.Telefone = newPhone;
+
+            await _orderRepository.UpdateAsync(orderEntity, orderEntity.Id);
+
+            return _mapper.Map<OrderDto>(orderEntity);
         }
     }
 }

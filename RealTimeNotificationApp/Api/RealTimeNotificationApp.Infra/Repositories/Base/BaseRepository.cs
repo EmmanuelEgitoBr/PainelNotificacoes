@@ -26,8 +26,8 @@ namespace RealTimeNotificationApp.Infra.Repositories.Base
         public async Task DeleteAsync(Expression<Func<T, bool>> filterExpression)
             => await _collection.FindOneAndDeleteAsync(filterExpression);
 
-        public virtual async Task<List<T>> FindAsync(Expression<Func<T, bool>> filter, CancellationToken cancellationToken = default)
-            => await _collection.Find(filter).ToListAsync();
+        public virtual async Task<T> FindAsync(Expression<Func<T, bool>> filter, CancellationToken cancellationToken = default)
+            => await _collection.Find(filter).FirstOrDefaultAsync(cancellationToken);
 
         public async Task UpdateAsync(T newClass, Guid id, CancellationToken cancellationToken = default)
         {

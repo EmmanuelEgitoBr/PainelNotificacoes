@@ -52,11 +52,13 @@ namespace RealTimeNotificationApp.Application.Services
             return _mapper.Map<DeliveryDto>(deliveryEntity);
         }
 
-        public async Task<DeliveryDto> UpdateStatusDelivery(DeliveryDto delivery,
+        public async Task<DeliveryDto> UpdateStatusDelivery(string orderNumber,
                                                             int statusFinal,
                                                             CancellationToken cancellationToken = default)
         {
-            var deliveryEntity = _mapper.Map<Delivery>(delivery);
+
+            var deliveryEntity = await _deliveryRepository.FindAsync(d => d.NumeroPedido == orderNumber,
+                                                                    cancellationToken);
             
             var newStatus = new DeliveryStatus((Status)statusFinal, DateTime.Now);
             deliveryEntity.ListaStatus!.Add(newStatus);

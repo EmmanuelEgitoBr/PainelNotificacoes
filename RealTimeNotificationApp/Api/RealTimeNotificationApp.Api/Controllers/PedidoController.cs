@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RealTimeNotificationApp.Application.Dtos;
 using RealTimeNotificationApp.Application.Interfaces;
 
@@ -42,7 +41,7 @@ namespace RealTimeNotificationApp.Api.Controllers
             
             var pedido = await _orderService.RegisterOrder(orderDto
                                                             , cancellationToken);
-            
+
             var entrega = await _deliveryService.RegisterDelivery(pedido.NumeroPedido
                                                                         , pedido.CriadoEm
                                                                         , cancellationToken);
@@ -56,17 +55,28 @@ namespace RealTimeNotificationApp.Api.Controllers
             return Ok(orderResult);
         }
 
-        [HttpPut("alterar-status/{statusFinal}")]
-        public async Task<ActionResult> Put([FromBody] DeliveryDto deliveryDto, int statusFinal)
+        [HttpPut("alterar-status/{numeroPedido}/{statusFinal}")]
+        public async Task<ActionResult> Put(string numeroPedido, int statusFinal)
         {
             var cancellationToken = CancellationToken.None;
-            var deliveryResult = await _deliveryService.UpdateStatusDelivery(deliveryDto, 
+
+            var deliveryResult = await _deliveryService.UpdateStatusDelivery(numeroPedido, 
                                                                             statusFinal,
                                                                             cancellationToken);
 
             if (deliveryResult == null) { return BadRequest("Erro ao atualizar Status de entrega"); }
 
             return Ok("Status de entrega atualizado com sucesso!");
+        }
+
+        [HttpPut("atualizar-telefone/{telefone}/{numeroPedido}")]
+        public async Task<ActionResult<OrderDto>> Put(string telefone, string numeroPedido)
+        {
+            var cancellationToken = CancellationToken.None;
+
+            var orderDto = await _orderService.UpdateContactNumber(numeroPedido, telefone, cancellationToken);
+
+            return Ok(orderDto);
         }
 
         [HttpDelete("apagar-pedido/{numeroPedido}")]
