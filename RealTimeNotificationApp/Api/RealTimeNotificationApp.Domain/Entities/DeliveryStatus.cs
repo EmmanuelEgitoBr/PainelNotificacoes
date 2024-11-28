@@ -1,4 +1,6 @@
-﻿namespace RealTimeNotificationApp.Domain.Entities
+﻿using RealTimeNotificationApp.Domain.Enums;
+
+namespace RealTimeNotificationApp.Domain.Entities
 {
     public class DeliveryStatus(Status status, DateTime dataMovimentacao)
     {

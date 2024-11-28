@@ -1,4 +1,4 @@
-﻿namespace RealTimeNotificationApp.Domain.Entities
+﻿namespace RealTimeNotificationApp.Domain.Enums
 {
     public enum Status
     {
