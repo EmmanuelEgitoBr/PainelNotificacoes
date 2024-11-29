@@ -1,5 +1,8 @@
 ﻿using RealTimeNotificationApp.Painel.Models;
 using RealTimeNotificationApp.Painel.Services.Interfaces;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Text.Json;
+using System.Text;
 
 namespace RealTimeNotificationApp.Painel.Services
 {
@@ -18,5 +21,16 @@ namespace RealTimeNotificationApp.Painel.Services
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<CompleteOrderModel>() ?? new CompleteOrderModel();
         }
+
+        public async Task<CompleteOrderModel> CreateOrder(OrderModel order)
+        {
+            var json = JsonSerializer.Serialize(order);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync($"/api/Pedido/registrar-pedido", content);
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadFromJsonAsync<CompleteOrderModel>() ?? new CompleteOrderModel();
+        }
+
     }
 }

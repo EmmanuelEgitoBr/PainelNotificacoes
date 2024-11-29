@@ -13,11 +13,6 @@ namespace RealTimeNotificationApp.Painel.Controllers
             _apiService = apiService;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet]
         public IActionResult ConsultarPedido()
         {
@@ -41,8 +36,25 @@ namespace RealTimeNotificationApp.Painel.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult CadastrarPedido()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CadastrarPedido(OrderModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model == null) { return View(); }
+
+                CompleteOrderModel result = await _apiService.CreateOrder(model);
+
+                if (result.Pedido == null || result.Entrega == null) { return View(); }
+
+                return RedirectToAction(nameof(Index), "Home");
+            }
             return View();
         }
 

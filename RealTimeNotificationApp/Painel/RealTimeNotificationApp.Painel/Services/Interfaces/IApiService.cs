@@ -5,5 +5,6 @@ namespace RealTimeNotificationApp.Painel.Services.Interfaces
     public interface IApiService
     {
         Task<CompleteOrderModel> GetCompleteOrder(string orderNumber);
+        Task<CompleteOrderModel> CreateOrder(OrderModel order);
     }
 }
