@@ -58,8 +58,25 @@ namespace RealTimeNotificationApp.Painel.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult AlterarStatus()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AlterarStatus(UpdateStatusModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model == null) { return View(); }
+
+                var result = await _apiService.UpdateStatus(model);
+
+                if (result) { return RedirectToAction(nameof(Index), "Home"); }
+
+                return View();
+            }
             return View();
         }
     }

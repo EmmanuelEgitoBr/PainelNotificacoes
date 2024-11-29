@@ -6,5 +6,6 @@ namespace RealTimeNotificationApp.Painel.Services.Interfaces
     {
         Task<CompleteOrderModel> GetCompleteOrder(string orderNumber);
         Task<CompleteOrderModel> CreateOrder(OrderModel order);
+        Task<bool> UpdateStatus(UpdateStatusModel model);
     }
 }

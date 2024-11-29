@@ -32,5 +32,15 @@ namespace RealTimeNotificationApp.Painel.Services
             return await response.Content.ReadFromJsonAsync<CompleteOrderModel>() ?? new CompleteOrderModel();
         }
 
+        public async Task<bool> UpdateStatus(UpdateStatusModel model)
+        {
+            var json = JsonSerializer.Serialize(model);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await _httpClient.PutAsync($"/api/Pedido/alterar-status", content);
+
+            if (response.IsSuccessStatusCode) { return true; }
+
+            return false;
+        }
     }
 }

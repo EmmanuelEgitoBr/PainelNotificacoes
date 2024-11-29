@@ -1,5 +1,49 @@
 ﻿@{
     ViewData["Title"] = "Alterar Status";
 }
+@model UpdateStatusModel
 
-<h1>Alterar Status</h1>
+<div class="container">
+    <h3>Alterar Status de Entrega de Pedido</h3>
+    <hr />
+    <form asp-action="AlterarStatus">
+        <div class="form-horizontal">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Número do pedido:</label>
+                        <div>
+                            <input asp-for="NumeroPedido" class="form-control" />
+                            <span asp-validation-for="NumeroPedido" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Selecione novo Status:</label>
+                        <div>
+                            <select asp-for="StatusFinal" class="form-control">
+                                <option selected value="0">Registrada</option>
+                                <option value="1">Pagamento Confirmado</option>
+                                <option value="2">Em Separação</option>
+                                <option value="3">Iniciada</option>
+                                <option value="4">Em Rota De Entrega</option>
+                                <option value="5">Entregue</option>
+                                <option value="6">Cancelado</option>
+                            </select>
+                            <span asp-validation-for="StatusFinal" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Alterar" class="btn btn-success" />
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-info">Voltar para início</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
