@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using RealTimeNotificationApp.Painel.Models;
+using RealTimeNotificationApp.Painel.Services;
 using RealTimeNotificationApp.Painel.Services.Interfaces;
 
 namespace RealTimeNotificationApp.Painel.Controllers
@@ -39,12 +41,15 @@ namespace RealTimeNotificationApp.Painel.Controllers
         [HttpGet]
         public IActionResult CadastrarPedido()
         {
+            CarregarListaUFs();
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> CadastrarPedido(OrderModel model)
         {
+            CarregarListaUFs();
+
             if (ModelState.IsValid)
             {
                 if (model == null) { return View(); }
@@ -78,6 +83,12 @@ namespace RealTimeNotificationApp.Painel.Controllers
                 return View();
             }
             return View();
+        }
+
+        private void CarregarListaUFs()
+        {
+            ViewBag.Estados = BrazilianStatesService.GetEstados().Select(c => new SelectListItem()
+            { Text = c.Name, Value = c.Abreviation }).ToList();
         }
     }
 }

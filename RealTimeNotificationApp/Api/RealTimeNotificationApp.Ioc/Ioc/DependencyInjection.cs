@@ -71,5 +71,20 @@ namespace RealTimeNotificationApp.Ioc.Ioc
 
             return services;
         }
+
+        public static IServiceCollection AddCorsConfiguration(this IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder =>
+                {
+                    builder
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();  
+                });
+            });
+            return services;
+        }
     }
 }

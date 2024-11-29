@@ -1,5 +1,72 @@
 ﻿@{
-    ViewData["Title"] = "Painel";
+    ViewData["Title"] = "Status";
 }
 
-<h1>Painel de Notificações</h1>
+<div class="container">
+    <h3>Painel de Notificações</h3>
+    <hr />
+    <h5>Notificações de mudança de status de pedido</h5>
+    <br />
+    <div class="container">
+        <ul>
+            <li id="orders"></li>
+        </ul>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.0/signalr.min.js"></script>
+    <script>
+        // Conecta ao Hub
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("https://localhost:7230/orderHub", {
+                withCredentials: false
+            })
+            .withAutomaticReconnect()
+            .configureLogging(signalR.LogLevel.Information)
+            .build();
+
+        // Atualiza o painel quando receber uma nova atualização
+        connection.on("ReceiveOrderStatusUpdate", (orderNumber, status) => {
+            const ordersDiv = document.getElementById("orders");
+            const orderElement = document.getElementById(orderNumber);
+            var statusName = "";
+            switch (status) {
+                case 0:
+                    statusName = "Registrada";
+                    break;
+                case 1:
+                    statusName = "Pagamento confirmado";
+                    break;
+                case 2:
+                    statusName = "Em separação";
+                    break;
+                case 3:
+                    statusName = "Iniciada";
+                    break;
+                case 4:
+                    statusName = "Em rota de entrega";
+                    break;
+                case 5:
+                    statusName = "Entregue";
+                    break;
+                case 6:
+                    statusName = "Cancelado";
+            }
+            let now = new Date().toLocaleDateString();
+            let displayMessage = `Número do pedido: ${orderNumber} --- Novo Status: ${statusName} --- Data: ${now}`;
+
+            if (orderElement) {
+                // Atualiza o status do pedido
+                orderElement.innerText = displayMessage;
+            } else {
+                // Cria um novo elemento para o pedido
+                const newOrder = document.createElement("div");
+                newOrder.id = orderNumber;
+                newOrder.innerText = displayMessage;
+                ordersDiv.appendChild(newOrder);
+            }
+        });
+
+        // Inicia a conexão
+        connection.start().catch(err => console.error(err));
+    </script>
+</div>

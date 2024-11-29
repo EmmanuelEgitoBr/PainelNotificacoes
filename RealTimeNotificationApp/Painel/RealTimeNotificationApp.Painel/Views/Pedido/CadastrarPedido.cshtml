@@ -117,7 +117,8 @@
                     <div class="form-group">
                         <label class="control-label">UF:</label>
                         <div>
-                            <input asp-for="Endereco!.Uf" class="form-control" />
+                            <select asp-for="Endereco!.Uf" asp-items="@ViewBag.Estados" class="form-control">
+                            </select>
                             <span asp-validation-for="Endereco!.Uf" class="text-danger"></span>
                         </div>
                     </div>

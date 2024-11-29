@@ -59,6 +59,11 @@ namespace RealTimeNotificationApp.Api.Controllers
                 Entrega = entrega
             };
 
+            // Enviar atualização do status para o hub
+            await _hubContext.Clients.All.SendAsync(
+                "ReceiveCreationNewOrder",
+                pedido.NumeroPedido);
+
             return Ok(orderResult);
         }
 

@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Registro";
+}
+
+<div class="container">
+    <h3>Painel de Notificações</h3>
+    <hr />
+    <h5>Notificações de criação de novo pedido</h5>
+    <br />
+    <div class="container">
+        <ul>
+            <li id="orders"></li>
+        </ul>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.0/signalr.min.js"></script>
+    <script>
+        // Conecta ao Hub
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("https://localhost:7230/orderHub", {
+                withCredentials: false
+            })
+            .withAutomaticReconnect()
+            .configureLogging(signalR.LogLevel.Information)
+            .build();
+
+        // Atualiza o painel quando receber uma nova atualização
+        connection.on("ReceiveCreationNewOrder", (orderNumber) => {
+            const ordersDiv = document.getElementById("orders");
+            const orderElement = document.getElementById(orderNumber);
+            let now = new Date().toLocaleDateString();
+
+            const newOrder = document.createElement("div");
+            newOrder.id = orderNumber;
+            newOrder.innerText = `Número do pedido: ${orderNumber} --- Data: ${now}`;
+            ordersDiv.appendChild(newOrder);
+        });
+
+        // Inicia a conexão
+        connection.start().catch(err => console.error(err));
+    </script>
+</div>

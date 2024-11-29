@@ -8,5 +8,15 @@ namespace RealTimeNotificationApp.Painel.Controllers
         {
             return View();
         }
+
+        public IActionResult NovoStatus()
+        {
+            return View("Index");
+        }
+
+        public IActionResult NovoRegistro() 
+        {
+            return View();
+        }
     }
 }
