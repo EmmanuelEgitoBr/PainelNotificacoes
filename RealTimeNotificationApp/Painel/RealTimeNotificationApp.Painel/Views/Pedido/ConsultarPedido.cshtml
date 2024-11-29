@@ -1,5 +1,162 @@
 ﻿@{
     ViewData["Title"] = "Consulta";
 }
+@model CompleteOrderModel
 
-<h1>Consulta de pedido</h1>
+<div style="padding:15px">
+    <h3>Consulta de pedido</h3>
+</div>
+<div style="padding:5px">
+    <h5>Faça a consulta pelo número do pedido</h5>
+</div>
+<form asp-action="ConsultarPedido" method="post">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <label class="form-label" for="orderNumber">Insira o número do pedido:</label>
+            </div>
+            <div class="col-md-3">
+                <input class="form-control" type="text" id="orderNumber" name="orderNumber" asp-for="Pedido!.NumeroPedido" />
+            </div>
+        </div>
+    </div>
+    <div class="container" style="padding-top:10px">
+        <button class="btn-primary" style="border:none;border-radius:5px;padding:5px" type="submit">Consultar</button>
+    </div>
+</form>
+<hr />
+@if (Model != null)
+{
+    <div class="container">
+        <h5>Informações do pedido</h5>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <b><label class="form-label">Nº do pedido:</label></b>
+            </div>
+            <div class="col-md-3">
+                <b><label class="form-label">Destinatário:</label></b>
+            </div>
+            <div class="col-md-3">
+                <b><label class="form-label">Descrição:</label></b>
+            </div>
+            <div class="col-md-3">
+                <b><label class="form-label">Valor Total:</label></b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label style="font-size:small">@Html.DisplayFor(model => model.Entrega!.NumeroPedido)</label>
+            </div>
+            <div class="col-md-3">
+                <label style="font-size:small">@Html.DisplayFor(model => model.Pedido!.NomeDestinatario)</label>
+            </div>
+            <div class="col-md-3">
+                <label style="font-size:small">@Html.DisplayFor(model => model.Pedido!.Descricao)</label>
+            </div>
+            <div class="col-md-3">
+                <label>R$ @Html.DisplayFor(model => model.Pedido!.Valor)</label>
+            </div>
+        </div>
+        <div style="height:10px"></div>
+        <div class="row">
+            <div class="col-md-3">
+                <b><label class="form-label">Telefone:</label></b>
+            </div>
+            <div class="col-md-3">
+                <b><label class="form-label">Data Registro:</label></b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label>@Html.DisplayFor(model => model.Pedido!.Telefone)</label>
+            </div>
+            <div class="col-md-3">
+                <label style="font-size:small">@Html.DisplayFor(model => model.Pedido!.CriadoEm)</label>
+            </div>
+        </div>
+        <hr />
+        <div >
+            <h5>Endereço</h5>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <b><label class="form-label">Logradouro:</label></b>
+            </div>
+            <div class="col-md-3">
+                <b><label class="form-label">Número:</label></b>
+            </div>
+            <div class="col-md-3">
+                <b><label class="form-label">Complemento:</label></b>
+            </div>
+            <div class="col-md-3">
+                <b><label class="form-label">Bairro:</label></b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label>@Html.DisplayFor(model => model.Pedido!.Endereco!.Logradouro)</label>
+            </div>
+            <div class="col-md-3">
+                <label style="font-size:small">@Html.DisplayFor(model => model.Pedido!.Endereco!.Numero)</label>
+            </div>
+            <div class="col-md-3">
+                <label>@Html.DisplayFor(model => model.Pedido!.Endereco!.Complemento)</label>
+            </div>
+            <div class="col-md-3">
+                <label>@Html.DisplayFor(model => model.Pedido!.Endereco!.Bairro)</label>
+            </div>
+        </div>
+        <div style="height:10px"></div>
+        <div class="row">
+            <div class="col-md-3">
+                <b><label class="form-label">CEP:</label></b>
+            </div>
+            <div class="col-md-3">
+                <b><label class="form-label">Município:</label></b>
+            </div>
+            <div class="col-md-3">
+                <b><label class="form-label">UF:</label></b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label>@Html.DisplayFor(model => model.Pedido!.Endereco!.CEP)</label>
+            </div>
+            <div class="col-md-3">
+                <label style="font-size:small">@Html.DisplayFor(model => model.Pedido!.Endereco!.Municipio)</label>
+            </div>
+            <div class="col-md-3">
+                <label style="font-size:small">@Html.DisplayFor(model => model.Pedido!.Endereco!.Uf)</label>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="container">
+        <h5>Status</h5>
+    </div>
+    <div class="container">
+        <div>
+            @foreach (var item in Model.Entrega.ListaStatus)
+            {
+                <div class="row">
+                    <div class="col-md-3">
+                        <b><label class="form-label">Status:</label></b>
+                    </div>
+                    <div class="col-md-3">
+                        <b><label class="form-label">Data Movimentação:</label></b>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>@Html.DisplayFor(modelItem => item.Status)</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label style="font-size:small">@Html.DisplayFor(modelItem => item.DataMovimentacao)</label>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
